@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT= process.env.PORT || 3000;
 const list=require('./controllers/list');
+const addArgonaut=require('./controllers/addArgonaut');
 
 const db = require('knex')({
   client: 'pg',
@@ -24,6 +25,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/list', (req, res) => list.handleList(req,res,db));
+
+app.post('/add', addArgonaut.handleAdd(db))
 
 app.listen(PORT, () => {
 	console.log(`server initialized & listening port ${PORT}`);
