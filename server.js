@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-	res.json('connexion to the server succeeded');
+	res.json('connexion to the server succeeded.');
 });
 
 app.get('/list', (req, res) => list.handleList(req,res,db));
