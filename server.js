@@ -1,24 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors=require('cors');
+const knex= require('knex');
+
 const PORT= process.env.PORT || 3000;
+
 const list=require('./controllers/list');
 const addArgonaut=require('./controllers/addArgonaut');
+// const { Client } = require('pg');
 
-const db = require('knex')({
+const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    port : 5432,
-    user : 'qrault',
-    password : '',
-    database : 'wildschoolDB'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 });
 
 app.use(bodyParser.json());
-// app.use(cors());
-
+app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json('connexion to the server succeeded');
