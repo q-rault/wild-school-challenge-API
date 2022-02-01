@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT= process.env.PORT || 3000;
+const list=require('./controllers/list');
 
 const db = require('knex')({
   client: 'pg',
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
 	res.json('connexion to the server succeeded');
 });
+
+app.get('/list', (req, res) => list.handleList(req,res,db));
 
 app.listen(PORT, () => {
 	console.log(`server initialized & listening port ${PORT}`);
